@@ -1,2 +1,1 @@
 # Rolo
-ETHGlobal London hackathon
