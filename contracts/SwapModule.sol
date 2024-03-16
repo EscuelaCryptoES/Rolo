@@ -46,8 +46,7 @@ contract SwapModule {
 
         // transfer tokens from source to safe
         bytes memory transferToGnosisTx = abi.encodeWithSelector(
-            IERC20.transferFrom.selector,
-            _userToSwap,
+            IERC20.transfer.selector,
             safeConfigs[_userToSwap].gnosisPayAccount,
             _amount
         );
