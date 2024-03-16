@@ -1,13 +1,20 @@
-// SPDX-License-Identifier: MIT
-pragma solidity 0.8.21;
+// SPDX-License-Identifier: UNLICENSED
+pragma solidity >=0.8.17;
 
-import "./interfaces/IERC20.sol";
+import {Enum} from "./common/Enum.sol";
+import {ISafe} from "./interfaces/ISafe.sol";
+import {IERC20} from "./interfaces/IERC20.sol";
 
-contract SafeERC20TransferModule {
+/// @title  SwapModule
+/// @notice Module to configure users gnosis accounts and transfer tokens to valut/account
+contract SwapModule {
+    event TransferToGnosisExecuted(address from, address to, uint256 amount);
+
     struct swapConfig{
         address tokenIn;
         address tokenOut;
         address gnosisPayAccount;
+        address safeAddress;
     }
 
     address public tenderlySigner;
@@ -27,20 +34,33 @@ contract SafeERC20TransferModule {
         safeConfigs[msg.sender] = userSafeConfig;
     }
 
-    function swapTokenToFiat(address userToSwap, uint256 amount) external{
-        require(safeConfigs[userToSwap].gnosisPayAccount != address(0), "User gnosis is address(0)");
-        require(safeConfigs[userToSwap].tokenIn != address(0), "User tokenIn is address(0)");
-        require(safeConfigs[userToSwap].tokenOut != address(0), "User tokenOut is address(0)");
-        require(IERC20(safeConfigs[userToSwap].tokenIn).balanceOf(userToSwap) >= amount, "Trying to swap more tokens that the user has");
+    function executeSwap(uint256 _amount, address _userToSwap) external {
+        require(
+            msg.sender == tenderlySigner,
+            "Only the Safe may do swaps"
+        );
+        require(safeConfigs[_userToSwap].gnosisPayAccount != address(0), "User gnosis is address(0)");
+        require(safeConfigs[_userToSwap].tokenIn != address(0), "User tokenIn is address(0)");
+        require(safeConfigs[_userToSwap].tokenOut != address(0), "User tokenOut is address(0)");
+        require(IERC20(safeConfigs[_userToSwap].tokenIn).balanceOf(_userToSwap) >= _amount, "Trying to swap more tokens that the user has");
 
-        
-    }
+        // transfer tokens from source to safe
+        bytes memory transferToGnosisTx = abi.encodeWithSelector(
+            IERC20.transferFrom.selector,
+            _userToSwap,
+            safeConfigs[_userToSwap].gnosisPayAccount,
+            _amount
+        );
+        require(
+            ISafe(safeConfigs[_userToSwap].safeAddress).execTransactionFromModule(
+                safeConfigs[_userToSwap].tokenIn,
+                0,
+                transferToGnosisTx,
+                Enum.Operation.Call
+            ),
+            "token transfer to gnosis failed"
+        );
 
-    function transferERC20(address tokenAddress, address from, address to, uint256 amount) public {
-        require(msg.sender == tenderlySigner, "Only callable by Tenderly");
-        
-        bytes memory data = abi.encodeWithSelector(IERC20.transferFrom.selector, from, to, amount);
-        (bool success, ) = tokenAddress.call(data);
-        require(success, "Token transfer failed");
+        emit TransferToGnosisExecuted(_userToSwap, safeConfigs[_userToSwap].gnosisPayAccount, _amount);
     }
 }
