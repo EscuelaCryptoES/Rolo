@@ -37,44 +37,7 @@ const index = () => {
         if (wallets.length > 0 && ready && authenticated) {
             handleCreateSmartContract()
         }
-    }, [wallets])
-
-    const encodeCallData = (params: { to: Address; value: bigint; data: `0x${string}` }) => {
-        return encodeFunctionData({
-          abi: [
-            {
-              inputs: [
-                {
-                  internalType: 'address',
-                  name: 'to',
-                  type: 'address'
-                },
-                {
-                  internalType: 'uint256',
-                  name: 'value',
-                  type: 'uint256'
-                },
-                {
-                  internalType: 'bytes',
-                  name: 'data',
-                  type: 'bytes'
-                },
-                {
-                  internalType: 'uint8',
-                  name: 'operation',
-                  type: 'uint8'
-                }
-              ],
-              name: 'executeUserOp',
-              outputs: [],
-              stateMutability: 'nonpayable',
-              type: 'function'
-            }
-          ],
-          functionName: 'executeUserOp',
-          args: [params.to, params.value, params.data, 0]
-        })
-      }      
+    }, [wallets])    
     
     const handleCreateSmartContract = async () => {
         
