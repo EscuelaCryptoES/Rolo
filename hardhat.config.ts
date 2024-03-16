@@ -1,6 +1,6 @@
-require("@nomicfoundation/hardhat-ethers");
-import "@nomicfoundation/hardhat-verify";
 import * as dotenv from 'dotenv';
+import "@nomiclabs/hardhat-ethers";
+import "@nomicfoundation/hardhat-verify";
 
 dotenv.config();
 
@@ -14,8 +14,8 @@ module.exports = {
       url: process.env.SEPOLIA_API_URL, // Or use your Infura URL
       accounts: [`0x${process.env.PK}`] // Use the account private key for deployment
     },
-    mainnet: {
-      url: process.env.MAINNET_API_URL, // Or use your Infura URL
+    gnosis: {
+      url: process.env.GNOSIS_API_URL, // Or use your Infura URL
       accounts: [`0x${process.env.PK}`] // Use the account private key for deployment
     }
   },
