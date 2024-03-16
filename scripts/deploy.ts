@@ -1,8 +1,8 @@
 import { ethers } from "hardhat";
 
 async function main() {
-  // Get the ContractFactory for your SafeERC20TransferModule contract
-  const SafeERC20TransferModuleFactory = await ethers.getContractFactory("SafeERC20TransferModule");
+  // Get the ContractFactory for your SwapModule contract
+  const SafeERC20TransferModuleFactory = await ethers.getContractFactory("SwapModule");
 
   // Deploy the contract
   const safeERC20TransferModule = await SafeERC20TransferModuleFactory.deploy("0x7067F319582d59404D39480bbbD1b7D3cC8f0b03");
