@@ -1,10 +1,16 @@
-# Getting Started with Create React App
+# ROLO DEMO for ETHGlobal London 2024
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Usage
+For using this dapp, you need to create a `.env` file with this content:
+```env
+REACT_APP_PRIVY_ID = <your-privy-api-key>
+REACT_APP_PIMLICO_ID = <your-pimlico-api-key>
+REACT_APP_GNOSIS_CARD_ADDRESS = <your-gnosis-card-address>
+```
 
 ## Available Scripts
 
-In the project directory, you can run:
+As long as this project is made in React, in the project directory, you can run:
 
 ### `npm start`
 

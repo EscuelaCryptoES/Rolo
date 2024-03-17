@@ -1,5 +1,4 @@
-import { Button, Flex, Text } from '@chakra-ui/react'
-import { PrivyProvider, usePrivy, useWallets } from '@privy-io/react-auth';
+import { PrivyProvider } from '@privy-io/react-auth';
 import React from 'react'
 import Login from '../Login'
 import { gnosis } from 'viem/chains';
@@ -9,9 +8,7 @@ const Main = () => {
     const [smartAccountClient, setSmartAccountClient] = React.useState<any>(null);
 
     const handleLoginSuccess = (walletData : any) => {
-        console.log(walletData)
         setSmartAccountClient(walletData);
-        console.log("Seteo SA en Main")
     };
 
     return (

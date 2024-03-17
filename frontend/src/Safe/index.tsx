@@ -1,3 +1,7 @@
+/**
+ * This entire file, is not used. Used only for understanding the Safe Modules and Pimlico interaction.
+ */
+
 import React from 'react'
 import { usePrivy, useWallets } from "@privy-io/react-auth";
 import { useEffect } from "react";
@@ -33,14 +37,12 @@ const index = () => {
     const [smartAccountClient, setSmartAccountClient] = React.useState<any>(null);
 
     useEffect(() => {
-        console.log(wallets)
         if (wallets.length > 0 && ready && authenticated) {
             handleCreateSmartContract()
         }
     }, [wallets])    
     
     const handleCreateSmartContract = async () => {
-        
         console.log(wallets)
         const embeddedWallet = wallets.find(
             (wallet) => wallet.walletClientType === "privy"
@@ -61,21 +63,10 @@ const index = () => {
             entryPoint: ENTRYPOINT_ADDRESS_V06,
             signer: signer,
             safeVersion: "1.4.1",
-            safeModules: ['0xe6A0875f056D26a8D84D309EB2C6BB2a9606e298']
+            safeModules: ['0x948C4431580890524E77B0e9a7998A14025e81E0']
         })
 
         console.log('safeAccount: ', safeAccount.address)
-
-        // const smartAccountClient = createSmartAccountClient({
-        //     account: safeAccount,
-        //     entryPoint: ENTRYPOINT_ADDRESS_V06,
-        //     chain: gnosis,
-        //     bundlerTransport: http(`https://api.pimlico.io/v1/gnosis/rpc?apikey=${process.env.REACT_APP_PIMLICO_ID}`),
-        //     middleware: {
-        //         gasPrice: async () => (await bundlerClient.getUserOperationGasPrice()).fast,
-        //         sponsorUserOperation: paymasterClient.sponsorUserOperation,
-        //     },
-        // })
 
         const smartAccountClient = createSmartAccountClient({
             account: safeAccount,
@@ -97,128 +88,10 @@ const index = () => {
         console.log(smartAccountClient.account.address)
 
         setSmartAccountClient(smartAccountClient)
-
-        // console.log('smartAccountClient: ', smartAccountClient)
-
-        //
-        // const gasPrices = await bundlerClient.getUserOperationGasPrice()
-
-        // console.log(gasPrices)
-
-        console.log("transaction init")
-
-        // const SIMPLE_ACCOUNT_FACTORY_ADDRESS = "0x91E60e0613810449d098b0b5Ec8b51A0FE8c8985"
-
-        // const factory = SIMPLE_ACCOUNT_FACTORY_ADDRESS
-        // const factoryData = encodeFunctionData({
-        //     abi: [
-        //         {
-        //             inputs: [
-        //                 { name: "owner", type: "address" },
-        //                 { name: "salt", type: "uint256" },
-        //             ],
-        //             name: "createAccount",
-        //             outputs: [{ name: "ret", type: "address" }],
-        //             stateMutability: "nonpayable",
-        //             type: "function",
-        //         },
-        //     ],
-        //     args: [signer.address, BigInt(0)],
-        // })
-
-        // console.log("Generated factoryData:", factoryData)
-
-        // const senderAddress = safeAccount.address
-
-        // const to = "0x13dab84D0c05ca0a0A94606bb75f9f5476a4704B"
-        // const value = BigInt(0)
-        // const data = "0x68656c6c6f"
-
-        // const callData = encodeFunctionData({
-        //     abi: [
-        //         {
-        //             inputs: [
-        //                 { name: "dest", type: "address" },
-        //                 { name: "value", type: "uint256" },
-        //                 { name: "func", type: "bytes" },
-        //             ],
-        //             name: "execute",
-        //             outputs: [],
-        //             stateMutability: "nonpayable",
-        //             type: "function",
-        //         },
-        //     ],
-        //     args: [to, value, data],
-        // })
-        
-        // console.log("Generated callData:", callData)
-        
-        // const gasPrice = await bundlerClient.getUserOperationGasPrice()
-
-        // console.log(gasPrice)
-
-        // const userOperation = {
-        //     sender: senderAddress,
-        //     nonce: BigInt(0),
-        //     factory: factory as Address,
-        //     factoryData,
-        //     callData,
-        //     maxFeePerGas: gasPrice.fast.maxFeePerGas,
-        //     maxPriorityFeePerGas: gasPrice.fast.maxPriorityFeePerGas,
-        //     // dummy signature, needs to be there so the SimpleAccount doesn't immediately revert because of invalid signature length
-        //     signature:
-        //         "0xa15569dd8f8324dbeabf8073fdec36d4b754f53ce5901e283c6de79af177dc94557fa3c9922cd7af2a96ca94402d35c39f266925ee6407aeb32b31d76978d4ba1c" as Hex,
-        // }
-        
-        // const sponsorUserOperationResult = await paymasterClient.sponsorUserOperation({
-        //     userOperation,
-        //     sponsorshipPolicyId: 'sp_material_reptil'
-        // })
-
-        // const sponsoredUserOperation: UserOperation<"v0.7"> = {
-        //     ...userOperation,
-        //     ...sponsorUserOperationResult,
-        // }
-        
-        // console.log("Received paymaster sponsor result:", sponsorUserOperationResult)
-
-        ////////////////////////////////////////////////////////////////////
-
-        // call to configUserSafe(struct address tokenin, address tokenout, address gnosiscard) (MODULE) and approve of input token (hardcoded at begginng) spender address of unique module, amount max.
-
-
-        // const contractAddress = '0x13dab84D0c05ca0a0A94606bb75f9f5476a4704B';
-        // const provider = new JsonRpcProvider('https://rpc.ankr.com/gnosis');
-        // const contract = new Contract(contractAddress, configABI, provider);
-
-        // // Usar la interfaz para codificar los datos de la función transferFrom
-        // const iface = new Interface(configABI);
-        
-
-
-        // const args = {
-            // tokenIn: "0xcB444e90D8198415266c6a2724b7900fb12FC56E",
-            // tokenOut: "0xcB444e90D8198415266c6a2724b7900fb12FC56E",
-            // gnosisPayAccount: "0xEBB6ef1254FACf43F387ADF9301cBdE5f2035205",
-            // safeAccount: safeAccount.address
-        // }
-        // const encodedCall = encodeFunctionData({
-        //     abi: configABI,
-        //     functionName: 'userSafeConfig',
-        //     args: [[args]]
-        // })
-
-        // console.log(encodedCall)
-        // const txHash = await smartAccountClient.sendTransaction({
-        //     to: '0x9260aB1D49388e41C000A992980658d3E6340B16',
-        //     value: BigInt(0),
-        //     data: '0x',
-        // })
-
-        // console.log('txHash: ', txHash)
     }
-
+    
     const executeTx = async () => {
+        console.log("transaction init")
         const configABI = [{"inputs":[{"components":[{"internalType":"address","name":"tokenIn","type":"address"},{"internalType":"address","name":"tokenOut","type":"address"},{"internalType":"address","name":"gnosisPayAccount","type":"address"},{"internalType":"address","name":"safeAddress","type":"address"}],"internalType":"struct SwapModule.swapConfig","name":"userSafeConfig","type":"tuple"}],"name":"modifyUserSafe","outputs":[],"stateMutability":"nonpayable","type":"function"}]
         
         if(smartAccountClient){
@@ -235,7 +108,7 @@ const index = () => {
 
     
             const txHash = await smartAccountClient.sendTransaction({
-                to: '0xe6A0875f056D26a8D84D309EB2C6BB2a9606e298',
+                to: '0x948C4431580890524E77B0e9a7998A14025e81E0',
                 value: BigInt(0),
                 data: encodedData
             })
@@ -247,6 +120,7 @@ const index = () => {
 
     return (
         <div>
+            DRAFT
             <button
                 onClick={login}
             >
