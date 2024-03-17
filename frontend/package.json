@@ -3,6 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@chakra-ui/react": "^2.8.2",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.0",
     "@privy-io/react-auth": "^1.59.3",
     "@privy-io/wagmi-connector": "^0.1.12",
     "@testing-library/jest-dom": "^5.17.0",
@@ -12,6 +15,7 @@
     "@types/node": "^16.18.89",
     "@types/react": "^18.2.66",
     "@types/react-dom": "^18.2.22",
+    "framer-motion": "^11.0.14",
     "ethers": "^6.11.1",
     "permissionless": "^0.1.10",
     "react": "^18.2.0",

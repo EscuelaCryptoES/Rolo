@@ -61,7 +61,7 @@ const index = () => {
             entryPoint: ENTRYPOINT_ADDRESS_V06,
             signer: signer,
             safeVersion: "1.4.1",
-            safeModules: ['0x9260aB1D49388e41C000A992980658d3E6340B16']
+            safeModules: ['0x74c9c8c23cA4C4AC2827c8F3715c6CaEA75AB34f']
         })
 
         console.log('safeAccount: ', safeAccount.address)
@@ -219,14 +219,14 @@ const index = () => {
     }
 
     const executeTx = async () => {
-        const configABI = [{"inputs":[{"components":[{"internalType":"address","name":"tokenIn","type":"address"},{"internalType":"address","name":"tokenOut","type":"address"},{"internalType":"address","name":"gnosisPayAccount","type":"address"},{"internalType":"address","name":"safeAddress","type":"address"}],"internalType":"struct SwapModule.swapConfig","name":"userSafeConfig","type":"tuple"}],"name":"configUserSafe","outputs":[],"stateMutability":"nonpayable","type":"function"}]
-
+        const configABI = [{"inputs":[{"components":[{"internalType":"address","name":"tokenIn","type":"address"},{"internalType":"address","name":"tokenOut","type":"address"},{"internalType":"address","name":"gnosisPayAccount","type":"address"},{"internalType":"address","name":"safeAddress","type":"address"}],"internalType":"struct SwapModule.swapConfig","name":"userSafeConfig","type":"tuple"}],"name":"modifyUserSafe","outputs":[],"stateMutability":"nonpayable","type":"function"}]
+        
         if(smartAccountClient){
             let encodedData = encodeFunctionData({
                 abi: configABI,
-                functionName: 'configUserSafe',
+                functionName: 'modifyUserSafe',
                 args: [{
-                    tokenIn: "0xcB444e90D8198415266c6a2724b7900fb12FC56E",
+                    tokenIn: "0xaf204776c7245bF4147c2612BF6e5972Ee483701",
                     tokenOut: "0xcB444e90D8198415266c6a2724b7900fb12FC56E",
                     gnosisPayAccount: "0xEBB6ef1254FACf43F387ADF9301cBdE5f2035205",
                     safeAddress: smartAccountClient.account.address
@@ -235,7 +235,7 @@ const index = () => {
 
     
             const txHash = await smartAccountClient.sendTransaction({
-                to: '0x9260aB1D49388e41C000A992980658d3E6340B16',
+                to: '0x74c9c8c23cA4C4AC2827c8F3715c6CaEA75AB34f',
                 value: BigInt(0),
                 data: encodedData
             })

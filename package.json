@@ -9,6 +9,7 @@
     "typescript": "^5.4.2"
   },
   "dependencies": {
+    "@chakra-ui/react": "^2.8.2",
     "dotenv": "^16.4.5"
   }
 }
