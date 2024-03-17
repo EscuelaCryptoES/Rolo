@@ -12,8 +12,8 @@ Rolo is a **trustless off-ramp automating protocol** which revolutionizes the wa
 
 Upon user login, our system utilizes a combination of technologies and custom modules to ensure a seamless onboarding experience and to facilitate secure transactions:
 
-1. **Seamless Onboarding UX**: We use `[Tenderly](https://tenderly.co/)` to provide a seamless onboarding user experience.
-2. **Safe Smart Accounts Creation**: With `[Pimlico](https://pimlico.example.com)`, we create Safe smart accounts for our users.
+1. **Seamless Onboarding UX**: We use [Tenderly](https://tenderly.co/) to provide a seamless onboarding user experience.
+2. **Safe Smart Accounts Creation**: With [Pimlico](https://pimlico.example.com), we create Safe smart accounts for our users.
 3. **Initialization and Token Swapping**:
     - We initialize the smart account by adding a custom module (`SwapModule`) designed for token swapping.
     - For the swap of two tokens on `Balancer V2`, we employ a custom function (`executeSimpleSwap`).
