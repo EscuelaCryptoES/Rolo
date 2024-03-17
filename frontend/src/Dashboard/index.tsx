@@ -1,5 +1,5 @@
-import { Avatar, Button, Flex, Input, Select, Text } from '@chakra-ui/react'
-import React, { useState } from 'react'
+import { Flex } from '@chakra-ui/react'
+import { useState } from 'react'
 import Onboarding from './Onboarding'
 import Balance from './Balance'
 
@@ -7,8 +7,6 @@ const Dashboard = ({ smartAccount } : any) => {
 
     const [isOnboarding, setIsOnboarding] = useState(true)
     const [gnosisPay, setGnosisPay] = useState("0x0")
-
-    console.log(smartAccount)
 
     const setParams = (data : any) => {
         setGnosisPay(data);

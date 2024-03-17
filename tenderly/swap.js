@@ -1,3 +1,6 @@
+/**
+ * Tenderly web3 action to call Safe Module every time a user receives sDAI
+ */
 const ethers = require('ethers');
 
 const safeModule = "0x9260aB1D49388e41C000A992980658d3E6340B16"

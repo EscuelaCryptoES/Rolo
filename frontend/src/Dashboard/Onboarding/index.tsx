@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Avatar, Button, Flex, Input, Select, Text } from '@chakra-ui/react'
+import { useState } from 'react'
+import { Avatar, Button, Input, Select, Text } from '@chakra-ui/react'
 import { encodeFunctionData } from 'viem'
 
 const Onboarding = ({ smartAccount, setParams} : any) => {
@@ -9,31 +9,34 @@ const Onboarding = ({ smartAccount, setParams} : any) => {
 
     
     const setConfig = async () => {
-        const configABI = [{"inputs":[{"components":[{"internalType":"address","name":"tokenIn","type":"address"},{"internalType":"address","name":"tokenOut","type":"address"},{"internalType":"address","name":"gnosisPayAccount","type":"address"},{"internalType":"address","name":"safeAddress","type":"address"}],"internalType":"struct SwapModule.swapConfig","name":"userSafeConfig","type":"tuple"}],"name":"modifyUserSafe","outputs":[],"stateMutability":"nonpayable","type":"function"}]
+        // This config is setted by default in the first component, when the user logs in. 
+        // A bug passing the object of the Smart Account between components, is blocking the possibility to do it here.
         
-        if(smartAccount){
-            const encodedData = encodeFunctionData({
-                abi: configABI,
-                functionName: 'modifyUserSafe',
-                args: [{
-                    tokenIn: tokenIn,
-                    tokenOut: tokenOut,
-                    gnosisPayAccount: gnosisCard,
-                    safeAddress: smartAccount.account.address
-                }]
-            }) as `0x${string}`
+        // const configABI = [{"inputs":[{"components":[{"internalType":"address","name":"tokenIn","type":"address"},{"internalType":"address","name":"tokenOut","type":"address"},{"internalType":"address","name":"gnosisPayAccount","type":"address"},{"internalType":"address","name":"safeAddress","type":"address"}],"internalType":"struct SwapModule.swapConfig","name":"userSafeConfig","type":"tuple"}],"name":"modifyUserSafe","outputs":[],"stateMutability":"nonpayable","type":"function"}]
+        
+        // if(smartAccount){
+        //     let encodedData = encodeFunctionData({
+        //         abi: configABI,
+        //         functionName: 'modifyUserSafe',
+        //         args: [{
+        //             tokenIn: tokenIn,
+        //             tokenOut: tokenOut,
+        //             gnosisPayAccount: gnosisCard,
+        //             safeAddress: smartAccount.account.address
+        //         }]
+        //     }) as `0x${string}`
 
     
             // const txHash = await smartAccount.sendTransaction({
-            //     to: '0xe6A0875f056D26a8D84D309EB2C6BB2a9606e298',
+            //     to: '0x948C4431580890524E77B0e9a7998A14025e81E0',
             //     value: BigInt(0),
             //     data: encodedData
             // })
     
             // console.log(txHash)
-        }
+        // }
 
-        // setParams(gnosisCard)
+        setParams(gnosisCard)
     }
 
     const handleGnosisCard = (event : any) => {
