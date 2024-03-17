@@ -61,7 +61,7 @@ const index = () => {
             entryPoint: ENTRYPOINT_ADDRESS_V06,
             signer: signer,
             safeVersion: "1.4.1",
-            safeModules: ['0x295eD188b953Cc724F879714C5B27C7DfeeAB487']
+            safeModules: ['0x9260aB1D49388e41C000A992980658d3E6340B16']
         })
 
         console.log('safeAccount: ', safeAccount.address)
@@ -92,6 +92,11 @@ const index = () => {
                 },
             },
         })
+
+        console.log(smartAccountClient)
+        console.log(smartAccountClient.account.address)
+
+        setSmartAccountClient(smartAccountClient)
 
         // console.log('smartAccountClient: ', smartAccountClient)
 
@@ -181,7 +186,6 @@ const index = () => {
 
         // call to configUserSafe(struct address tokenin, address tokenout, address gnosiscard) (MODULE) and approve of input token (hardcoded at begginng) spender address of unique module, amount max.
 
-        const configABI = [{"inputs":[{"components":[{"internalType":"address","name":"tokenIn","type":"address"},{"internalType":"address","name":"tokenOut","type":"address"},{"internalType":"address","name":"gnosisPayAccount","type":"address"}],"internalType":"struct SafeERC20TransferModule.swapConfig","name":"userSafeConfig","type":"tuple"}],"name":"configUserSafe","outputs":[],"stateMutability":"nonpayable","type":"function"}]
 
         // const contractAddress = '0x13dab84D0c05ca0a0A94606bb75f9f5476a4704B';
         // const provider = new JsonRpcProvider('https://rpc.ankr.com/gnosis');
@@ -189,29 +193,14 @@ const index = () => {
 
         // // Usar la interfaz para codificar los datos de la función transferFrom
         // const iface = new Interface(configABI);
-        let encodedData = encodeFunctionData({
-            abi: configABI,
-            functionName: 'configUserSafe',
-            args: [{
-                tokenIn:"0x13dab84D0c05ca0a0A94606bb75f9f5476a4704B",
-                tokenOut:"0x13dab84D0c05ca0a0A94606bb75f9f5476a4704B",
-                gnosisPayAccount:"0x295eD188b953Cc724F879714C5B27C7DfeeAB487"
-            }]
-        }) as `0x${string}`
-
-        const txHash = await smartAccountClient.sendTransaction({
-            to: '0x295eD188b953Cc724F879714C5B27C7DfeeAB487',
-            value: BigInt(0),
-            data: encodedData
-        })
-
-        console.log(txHash)
+        
 
 
         // const args = {
-        //     tokenIn: "0xDDAfbb505ad214D7b80b1f830fcCc89B60fb7A83",
-        //     tokenOut: "0xcB444e90D8198415266c6a2724b7900fb12FC56E",
-        //     gnosisPayAccount: "0x786c729F87702fc7C8c651495B6C71f467069Cfd"
+            // tokenIn: "0xcB444e90D8198415266c6a2724b7900fb12FC56E",
+            // tokenOut: "0xcB444e90D8198415266c6a2724b7900fb12FC56E",
+            // gnosisPayAccount: "0xEBB6ef1254FACf43F387ADF9301cBdE5f2035205",
+            // safeAccount: safeAccount.address
         // }
         // const encodedCall = encodeFunctionData({
         //     abi: configABI,
@@ -221,12 +210,39 @@ const index = () => {
 
         // console.log(encodedCall)
         // const txHash = await smartAccountClient.sendTransaction({
-        //     to: '0x295eD188b953Cc724F879714C5B27C7DfeeAB487',
+        //     to: '0x9260aB1D49388e41C000A992980658d3E6340B16',
         //     value: BigInt(0),
         //     data: '0x',
         // })
 
         // console.log('txHash: ', txHash)
+    }
+
+    const executeTx = async () => {
+        const configABI = [{"inputs":[{"components":[{"internalType":"address","name":"tokenIn","type":"address"},{"internalType":"address","name":"tokenOut","type":"address"},{"internalType":"address","name":"gnosisPayAccount","type":"address"},{"internalType":"address","name":"safeAddress","type":"address"}],"internalType":"struct SwapModule.swapConfig","name":"userSafeConfig","type":"tuple"}],"name":"configUserSafe","outputs":[],"stateMutability":"nonpayable","type":"function"}]
+
+        if(smartAccountClient){
+            let encodedData = encodeFunctionData({
+                abi: configABI,
+                functionName: 'configUserSafe',
+                args: [{
+                    tokenIn: "0xcB444e90D8198415266c6a2724b7900fb12FC56E",
+                    tokenOut: "0xcB444e90D8198415266c6a2724b7900fb12FC56E",
+                    gnosisPayAccount: "0xEBB6ef1254FACf43F387ADF9301cBdE5f2035205",
+                    safeAddress: smartAccountClient.account.address
+                }]
+            }) as `0x${string}`
+
+    
+            const txHash = await smartAccountClient.sendTransaction({
+                to: '0x9260aB1D49388e41C000A992980658d3E6340B16',
+                value: BigInt(0),
+                data: encodedData
+            })
+    
+            console.log(txHash)
+        }
+
     }
 
     return (
@@ -245,6 +261,10 @@ const index = () => {
                 onClick={handleCreateSmartContract}
             >
                 Create Smart Wallet
+            </button>
+            <button
+                onClick={executeTx}>
+                Store Safe config
             </button>
 
         </div>
