@@ -6,7 +6,6 @@ import { gnosis } from 'viem/chains';
 import Dashboard from '../Dashboard';
 
 const Main = () => {
-    // const [embeddedWallet, setEmbeddedWallet] = React.useState<any>(null);
     const [smartAccountClient, setSmartAccountClient] = React.useState<any>(null);
 
     const handleLoginSuccess = (walletData : any) => {
@@ -14,6 +13,7 @@ const Main = () => {
         setSmartAccountClient(walletData);
         console.log("Seteo SA en Main")
     };
+
     return (
         <>
             {!smartAccountClient?.account?.address ? (
@@ -22,7 +22,7 @@ const Main = () => {
                     onSuccess={() => {}}
                     config={{
                         appearance: {
-                            theme: '#425047',
+                            theme: '#ffffff',
                             accentColor: '#A7C080'
                         },
                         defaultChain: gnosis,

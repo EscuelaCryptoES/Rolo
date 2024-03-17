@@ -61,7 +61,7 @@ const index = () => {
             entryPoint: ENTRYPOINT_ADDRESS_V06,
             signer: signer,
             safeVersion: "1.4.1",
-            safeModules: ['0x74c9c8c23cA4C4AC2827c8F3715c6CaEA75AB34f']
+            safeModules: ['0xe6A0875f056D26a8D84D309EB2C6BB2a9606e298']
         })
 
         console.log('safeAccount: ', safeAccount.address)
@@ -235,7 +235,7 @@ const index = () => {
 
     
             const txHash = await smartAccountClient.sendTransaction({
-                to: '0x74c9c8c23cA4C4AC2827c8F3715c6CaEA75AB34f',
+                to: '0xe6A0875f056D26a8D84D309EB2C6BB2a9606e298',
                 value: BigInt(0),
                 data: encodedData
             })

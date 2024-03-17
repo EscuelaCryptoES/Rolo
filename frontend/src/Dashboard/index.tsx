@@ -6,9 +6,14 @@ import Balance from './Balance'
 const Dashboard = ({ smartAccount } : any) => {
 
     const [isOnboarding, setIsOnboarding] = useState(true)
+    const [gnosisPay, setGnosisPay] = useState("0x0")
 
-    console.log("Print desde Dashboard")
     console.log(smartAccount)
+
+    const setParams = (data : any) => {
+        setGnosisPay(data);
+        setIsOnboarding(false);
+    };
 
     return (
         <Flex
@@ -33,10 +38,14 @@ const Dashboard = ({ smartAccount } : any) => {
             >
                 {isOnboarding ?
                     <Onboarding
-                        setIsOnboarding={setIsOnboarding}
+                        smartAccount = {smartAccount}
+                        setParams = {setParams}
                     />
                     :
-                    <Balance />
+                    <Balance 
+                        gnosisPay = {gnosisPay}
+                        address = {smartAccount.account.address}
+                    />
                 }
 
             </Flex>

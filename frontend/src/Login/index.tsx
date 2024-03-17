@@ -56,8 +56,7 @@ const Login = ({ onLoginSuccess } : any) => {
             entryPoint: ENTRYPOINT_ADDRESS_V06,
             signer: signer,
             safeVersion: "1.4.1",
-            //! TODO
-            safeModules: ['0x0B135C6AFF3EeC4B44d4b1edbc7aA856c8ceDf24']
+            safeModules: ['0xe6A0875f056D26a8D84D309EB2C6BB2a9606e298']
         })
 
         console.log('safeAccount in Login: ', safeAccount.address)
