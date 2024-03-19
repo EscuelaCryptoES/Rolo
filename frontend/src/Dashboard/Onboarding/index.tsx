@@ -28,7 +28,7 @@ const Onboarding = ({ smartAccount, setParams} : any) => {
 
     
             // const txHash = await smartAccount.sendTransaction({
-            //     to: '0x948C4431580890524E77B0e9a7998A14025e81E0',
+            //     to: process.env.REACT_APP_SAFE_MODULE,
             //     value: BigInt(0),
             //     data: encodedData
             // })

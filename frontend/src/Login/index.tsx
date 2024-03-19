@@ -8,7 +8,7 @@ import { Account, createClient, createPublicClient, createWalletClient, custom, 
 import { gnosis } from 'viem/chains';
 
 // Auto-swap Safe Module
-const SAFE_MODULE = "0x948C4431580890524E77B0e9a7998A14025e81E0"
+const SAFE_MODULE = process.env.REACT_APP_SAFE_MODULE
 
 // Build the clients
 const publicClient = createPublicClient({

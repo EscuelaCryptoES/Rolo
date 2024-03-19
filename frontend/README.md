@@ -6,6 +6,7 @@ For using this dapp, you need to create a `.env` file with this content:
 REACT_APP_PRIVY_ID = <your-privy-api-key>
 REACT_APP_PIMLICO_ID = <your-pimlico-api-key>
 REACT_APP_GNOSIS_CARD_ADDRESS = <your-gnosis-card-address>
+REACT_APP_SAFE_MODULE = <your-safe-module-address>
 ```
 
 ## Available Scripts

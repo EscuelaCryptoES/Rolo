@@ -3,7 +3,7 @@
  */
 const ethers = require('ethers');
 
-const safeModule = "0x9260aB1D49388e41C000A992980658d3E6340B16"
+const safeModule = await context.secrets.get('SAFE_MODULE');
 const eurE = "0xcB444e90D8198415266c6a2724b7900fb12FC56E"
 
 const provider = new ethers.providers.JsonRpcProvider('https://rpc.ankr.com/gnosis');

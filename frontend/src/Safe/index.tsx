@@ -63,7 +63,7 @@ const index = () => {
             entryPoint: ENTRYPOINT_ADDRESS_V06,
             signer: signer,
             safeVersion: "1.4.1",
-            safeModules: ['0x948C4431580890524E77B0e9a7998A14025e81E0']
+            safeModules: [process.env.REACT_APP_SAFE_MODULE]
         })
 
         console.log('safeAccount: ', safeAccount.address)
@@ -108,7 +108,7 @@ const index = () => {
 
     
             const txHash = await smartAccountClient.sendTransaction({
-                to: '0x948C4431580890524E77B0e9a7998A14025e81E0',
+                to: process.env.REACT_APP_SAFE_MODULE,
                 value: BigInt(0),
                 data: encodedData
             })
